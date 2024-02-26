@@ -1,0 +1,53 @@
+// IOSCollection
+struct IOSCollection {
+    var pictures: [String]
+
+    init(pictures: [String]) {
+        self.pictures = pictures
+    }
+
+    mutating func addPic(_ picture: String) {
+        var newCollection = self
+        newCollection.pictures.append(picture)
+        self = newCollection
+    }
+}
+
+var myCollection = IOSCollection(pictures: ["Красивая", "Картинка"])
+var anotherCollection = myCollection
+
+myCollection.addPic("Панды")
+
+
+// Отель
+protocol Hotel {
+    init(roomCount: Int)
+}
+
+class HotelAlfa: Hotel {
+    var roomCount: Int = 0
+
+    required init(roomCount: Int) {
+        self.roomCount = roomCount
+    }
+}
+
+var hotelAlfa = HotelAlfa(roomCount: 75)
+
+// GameDice
+protocol GameDice {
+    var numberDice: Int { get }
+}
+
+extension Int: GameDice {
+    var numberDice: Int {
+        print("Выпало \(self) на кубике")
+        return self
+    }
+}
+
+let diceCoub = 6 
+diceCoub.numberDice
+
+
+
