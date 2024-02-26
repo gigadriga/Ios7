@@ -1,0 +1,103 @@
+// Протокол
+protocol MyProtocol {
+    var Hi: String { get set}
+    var Money: Int? { get set }
+    func laugh()
+}
+
+class Class: MyProtocol {
+    var Hi: String
+    var Money: Int?
+
+    init(Hi: String, Money: Int?) {
+        self.Hi = Hi
+        self.Money = Money
+    }
+
+    func laugh() {
+        print("Axaax")
+    }
+}
+
+var myObject = Class(Hi: "Hi", Money: 4500)
+
+print(myObject.Hi)
+print(myObject.Money ?? 0)
+
+myObject.laugh()
+
+myObject.Money = 7200
+
+print(myObject.Money ?? 0)
+
+// 2 протокола
+import Foundation
+
+
+enum Platform: String {
+    case ios = "iOS"
+    case android = "Android"
+    case web = "Web"
+}
+
+protocol CodeWriting {
+    var time: String { get }
+    var codeAmount: Int { get }
+    func writeCode(platform: Platform, numberOfSpecialist: Int)
+}
+
+protocol CodeStopping {
+    var stopTime: String { get }
+    var testedCodeAmount: Int { get }
+    func stopCoding()
+}
+
+
+class Company: CodeWriting, CodeStopping {
+    var numberOfProgrammers: Int
+    var specializations: [String]
+    var startTime: Date?
+
+    init(numberOfProgrammers: Int, specializations: [String]) {
+        self.numberOfProgrammers = numberOfProgrammers
+        self.specializations = specializations
+        self.startTime = Date()
+    }
+
+
+    var time: String {
+        return "2024-02-24"
+    }
+
+    var codeAmount: Int {
+        return 1000
+    }
+
+    func writeCode(platform: Platform, numberOfSpecialist: Int) {
+        print("Разработка началась, пишем код \(platform.rawValue) для \(numberOfSpecialist) специалистов")
+    }
+
+    var stopTime: String {
+        return "2024-02-25"
+    }
+
+    var testedCodeAmount: Int {
+        return 800
+    }
+
+    func stopCoding() {
+        guard let startTime = self.startTime else {
+            return
+        }
+
+        let endTime = Date()
+        let timeDifference = endTime.timeIntervalSince(startTime)
+
+        print("Работа закончена. Сдаю в тестирование. Затраченное время: \(timeDifference) секунд")
+    }
+}
+
+let myCompany = Company(numberOfProgrammers: 50, specializations: ["ios", "android", "web"])
+myCompany.writeCode(platform: .ios, numberOfSpecialist: 20)
+myCompany.stopCoding()
+
